@@ -21,7 +21,11 @@ var users = [
 ]
 
 router.get('/all', function(req, res, next) {
+  if (users.length === 0){
+    res.status(404).send({ error: "No courses found" });
+} else {
   res.send(users);
+}
 });
 
 router.get('/:email', function(req, res, next) {
@@ -32,6 +36,10 @@ router.get('/:email', function(req, res, next) {
       returnUsers.push(user);
     }
   })
+  if (returnUsers.length === 0){
+    res.status(404).send({ error: "No courses found" });
+} else {
   res.send(returnUsers);
+}
 });
 module.exports = router;
