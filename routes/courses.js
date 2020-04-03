@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-//This should probably come from a database:
+//This should probably come from a database, but for testing:
 var courses = [
   {
     id: "9384",
@@ -30,31 +30,31 @@ router.get('/all', function(req, res, next) {
 
 router.get('/search/:term', function(req, res, next) {
     var term = req.params.term; // Not safe, but proof of concept
-    var returnCourses = [];
+    var data = [];
     courses.forEach(course => {
       if (course.id === term || course.name ===  term || course.timeslot === term){
-        returnCourses.push(course);
+        data.push(course);
       }
     })
-    if (returnCourses.length === 0){
+    if (data.length === 0){
         res.status(404).send({ error: "No courses found" });
     } else {
-      res.send(returnCourses);
+      res.send(data);
     }
   });
 
 router.get('/:courseID', function(req, res, next) {
   var courseID = req.params.courseID; // Not safe, but proof of concept
-  var returnCourses = [];
+  var data = [];
   courses.forEach(course => {
     if (course.id === courseID){
-      returnCourses.push(course);
+      data.push(course);
     }
   })
-  if (returnCourses.length === 0){
+  if (data.length === 0){
       res.status(404).send({ error: "No courses found" });
   } else {
-    res.send(returnCourses);
+    res.send(data);
   }
 });
 module.exports = router;
