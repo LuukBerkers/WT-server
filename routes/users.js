@@ -22,7 +22,7 @@ var users = [
 
 router.get('/all', function(req, res, next) {
   if (users.length === 0){
-    res.status(404).send({ error: "No courses found" });
+    res.status(404).send({ error: "No users found" });
 } else {
   res.send(users);
 }
@@ -37,7 +37,7 @@ router.get('/:email', function(req, res, next) {
     }
   })
   if (returnUsers.length === 0){
-    res.status(404).send({ error: "No courses found" });
+    res.status(404).send({ error: "No users found" });
 } else {
   res.send(returnUsers);
 }
