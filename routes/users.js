@@ -1,15 +1,37 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  var user = {
+//This should probably come from a database:
+var users = [
+  {
+    email: "marklooye1@gmail.com",
     first_name: "Mark",
-    last_name: "Looye",
-    age: "23",
-    course: "Webtechnology"
+    last_name: "Looye"
+  },
+  {
+    email: "",
+    first_name: "Luuk",
+    last_name: "Bergers"
+  },
+  {
+    email: "",
+    first_name: "Thijs",
+    last_name: "Rademaker"
   }
-  res.send(user);
+]
+
+router.get('/all', function(req, res, next) {
+  res.send(users);
 });
 
+router.get('/:email', function(req, res, next) {
+  var email = req.params.email; // Not safe, but proof of concept
+  var returnUsers = [];
+  users.forEach(user => {
+    if (user.email === req.params.email){
+      returnUsers.push(user);
+    }
+  })
+  res.send(returnUsers);
+});
 module.exports = router;
