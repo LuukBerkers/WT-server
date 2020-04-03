@@ -43,7 +43,7 @@ router.get('/', function(req, res, next) {
       res.send(data);
     }
   } else {
-    res.redirect('../login')
+    res.redirect('/login')
   }
 });
 module.exports = router;
