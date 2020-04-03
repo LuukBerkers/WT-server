@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
     first_name: "Mark",
     last_name: "Looye",
     age: "23",
-
+    course: "Webtechnology"
   }
   res.send(user);
 });
