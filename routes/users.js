@@ -28,7 +28,7 @@ router.get('/:email', function(req, res, next) {
   var email = req.params.email; // Not safe, but proof of concept
   var returnUsers = [];
   users.forEach(user => {
-    if (user.email === req.params.email){
+    if (user.email === email){
       returnUsers.push(user);
     }
   })
