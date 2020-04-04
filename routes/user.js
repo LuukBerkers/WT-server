@@ -46,4 +46,12 @@ router.get('/', function(req, res, next) {
     res.redirect('login')
   }
 });
+
+router.put('/', function(req, res, next) {
+  if (req.session.loggedin){
+    //Route for editing profile of user
+  } else {
+    res.redirect('login')
+  }
+});
 module.exports = router;

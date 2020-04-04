@@ -29,7 +29,7 @@ router.get('/all', function(req, res, next) {
 });
 
 router.get('/search/:term', function(req, res, next) {
-    var term = req.params.term; // Not safe, but proof of concept
+    var term = req.params.term;
     var data = [];
     courses.forEach(course => {
       if (course.id === term || course.name ===  term || course.timeslot === term){
@@ -44,7 +44,7 @@ router.get('/search/:term', function(req, res, next) {
   });
 
 router.get('/:courseID', function(req, res, next) {
-  var courseID = req.params.courseID; // Not safe, but proof of concept
+  var courseID = req.params.courseID;
   var data = [];
   courses.forEach(course => {
     if (course.id === courseID){
@@ -55,6 +55,35 @@ router.get('/:courseID', function(req, res, next) {
       res.status(404).send({ error: "No courses found" });
   } else {
     res.send(data);
+  }
+});
+
+router.put('/:courseID/register', async function(req, res, next) {
+  if (req.session.loggedin){       //Only for loggedinusers
+    var courseID = req.params.courseID;
+    var email = req.session.email;
+    //Do some SQL here which adds courseID to array in user entry of database
+    //And await on it
+    //Also check if user has right qualifications in the database for the course
+    //For testing:
+    console.log(email, ' is registered for ', courseID);
+    res.status(204).send();
+  } else {
+    res.redirect('/login')
+  }
+});
+
+router.delete('/:courseID/unregister', async function(req, res, next) {
+  if (req.session.loggedin){       //Only for loggedinusers
+    var courseID = req.params.courseID;
+    var email = req.session.email;
+    //Do some SQL here which deletes courseID of array in user entry of database
+    //And await on it
+    //For testing:
+    console.log(email, ' is unregistered for ', courseID);
+    res.status(204).send();
+  } else {
+    res.redirect('/login')
   }
 });
 module.exports = router;
