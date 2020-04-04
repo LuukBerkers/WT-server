@@ -27,6 +27,6 @@ app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/login', loginRouter);
 app.use('/courses', coursesRouter);
-app.user('/register', registerRouter);
+app.use('/register', registerRouter);
 
 module.exports = app;
