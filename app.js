@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-	secret: '7MyUpOgiImJYnsx6J3f4QVWPo/I=', //This probably should be in a seperate file, which is in the .gitignore
+	secret: process.env.SESSION_SECRET, //Normally start.sh would be gitignored, and the session secret hidden
 	resave: true,
 	saveUninitialized: true
 }));
