@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 var path = require('path');
+var auth = require('../auth');
 
 //Ik weet niet echt hoe al deze SQL shit werkt, maar dit is gevolgd uit tutorial: https://codeshack.io/basic-login-system-nodejs-express-mysql/
 var connection = mysql.createConnection({
@@ -42,12 +43,12 @@ router.post('/', function(req, res) {
 	}
 });
 
+
+//Everything below this requires auth
+router.use(auth.loginRequired);
+
 router.get('/succes', function(req, res, next) {
-  if(req.session.loggedin){
-    res.sendFile(path.join(__dirname+'../../public/loginsucces.html'));
-  } else {
-    res.redirect('../login');
-  }
+	res.sendFile(path.join(__dirname+'../../public/loginsucces.html'));
 });
 
 module.exports = router;

@@ -19,39 +19,24 @@ var users = [
     last_name: "Rademaker"
   }
 ]
-//Testing route, should not be in production:
-router.get('/all', function(req, res, next) {
-  if (users.length === 0){
-    res.status(404).send({ error: "No users found" });
-  } else {
-    res.send(users);
-  }
-});
 
 router.get('/', function(req, res, next) {
-  if (req.session.loggedin){       //Only for loggedinusers
-    var email = req.session.email; //Gets the user that is logged in atm by email
-    var data;
-    users.forEach(user =>{
-      if (user.email === email){
-        data = user;
-      }
-    })
-    if (!data){
-      res.status(404).send({ error: "No users found" });
-    } else {
-      res.send(data);
+  var email = req.session.email; //Gets the user that is logged in atm by email
+  var data;
+  users.forEach(user =>{
+    if (user.email === email){
+      data = user;
     }
+  })
+  if (!data){
+    res.status(404).send({ error: "No users found" });
   } else {
-    res.redirect('login')
+    res.send(data);
   }
 });
 
 router.put('/', function(req, res, next) {
-  if (req.session.loggedin){
-    //Route for editing profile of user
-  } else {
-    res.redirect('login')
-  }
+  //Route for editing profile of user
+  //Make sure to use req.session.email as a path to edit for security
 });
 module.exports = router;

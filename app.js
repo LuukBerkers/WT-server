@@ -3,6 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
+var auth = require('./auth');
 
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
@@ -24,7 +25,7 @@ app.use(session({
 }));
 
 app.use('/', indexRouter);
-app.use('/user', userRouter);
+app.use('/user', auth.loginRequired, userRouter); //If all paths require login, we can put it here as well
 app.use('/login', loginRouter);
 app.use('/courses', coursesRouter);
 app.use('/register', registerRouter);

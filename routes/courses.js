@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var auth = require('../auth');
 
 //This should probably come from a database, but for testing:
 var courses = [
@@ -58,32 +59,27 @@ router.get('/:courseID', function(req, res, next) {
   }
 });
 
+//Everything below this requires auth
+router.use(auth.loginRequired);
+
 router.put('/:courseID/register', async function(req, res, next) {
-  if (req.session.loggedin){       //Only for loggedinusers
-    var courseID = req.params.courseID;
-    var email = req.session.email;
-    //Do some SQL here which adds courseID to array in user entry of database
-    //And await on it
-    //Also check if user has right qualifications in the database for the course
-    //For testing:
-    console.log(email, ' is registered for ', courseID);
-    res.status(204).send();
-  } else {
-    res.redirect('/login')
-  }
+  var courseID = req.params.courseID;
+  var email = req.session.email;
+  //Do some SQL here which adds courseID to array in user entry of database
+  //And await on it
+  //Also check if user has right qualifications in the database for the course
+  //For testing:
+  console.log(email, ' is registered for ', courseID);
+  res.status(204).send();
 });
 
 router.delete('/:courseID/unregister', async function(req, res, next) {
-  if (req.session.loggedin){       //Only for loggedinusers
-    var courseID = req.params.courseID;
-    var email = req.session.email;
-    //Do some SQL here which deletes courseID of array in user entry of database
-    //And await on it
-    //For testing:
-    console.log(email, ' is unregistered for ', courseID);
-    res.status(204).send();
-  } else {
-    res.redirect('/login')
-  }
+  var courseID = req.params.courseID;
+  var email = req.session.email;
+  //Do some SQL here which deletes courseID of array in user entry of database
+  //And await on it
+  //For testing:
+  console.log(email, ' is unregistered for ', courseID);
+  res.status(204).send();
 });
 module.exports = router;
