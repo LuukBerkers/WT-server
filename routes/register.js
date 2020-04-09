@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
   if (!req.session.loggedin){
     res.sendFile(path.join(__dirname+'../../public/register.html'));
   } else {
-    res.redirect('/login/succes');
+    res.redirect('login/succes');
   }
 });
 
