@@ -6,7 +6,10 @@ var users = [
   {
     email: "marklooye1@gmail.com",
     first_name: "Mark",
-    last_name: "Looye"
+    last_name: "Looye",
+    level: "BSc",
+    program: "Psychology",
+    registrations: ["INFOB2WT", "Someothercourse"],
   },
   {
     email: "",
