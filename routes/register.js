@@ -1,11 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
-var path = require('path');
 
 router.get('/', function(req, res, next) {
   if (!req.session.loggedin){
-    res.sendFile(path.join(__dirname+'../../public/register.html'));
+    res.render("register");
   } else {
     res.redirect('user');
   }
@@ -37,7 +36,7 @@ router.post('/', function(req, res) {
 });
 
 router.get('/succes', function(req, res, next) {
-    res.sendFile(path.join(__dirname+'../../public/registersucces.html'));
+    res.render("registerusersucces");
 });
 
 module.exports = router;

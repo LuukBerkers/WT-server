@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var path = require('path');
 
 //This should probably come from a database, but for testing:
 var users = [
@@ -36,7 +35,7 @@ router.get('/', function(req, res, next) {
     res.status(404).send({ error: "No users found" });
   } else {
     //res.send(data);
-    res.sendFile(path.join(__dirname+'../../public/user.html'));
+    res.render("user");
   }
 });
 
