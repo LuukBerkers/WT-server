@@ -6,14 +6,14 @@ var sqlite = require('sqlite3');
 var dbFile = 'database.db';
 db = new sqlite.Database(dbFile);
 
-router.get('/all', async function (req, res, next) {
+router.get('/all', function (req, res, next) {
   var coursesQuery = `SELECT * FROM Courses;`;
   db.all(coursesQuery, [], (err, tuples) => {
     if (err) {
       console.error(err);
       res.status(500).send({ error: 'Internal server error' });
     } else {
-      if (tuples.length === 0) {
+      if (!tuples.length) {
         res.status(404).send({ error: 'No courses found' });
       } else {
         res.render('courses', {courses: tuples});
@@ -23,6 +23,37 @@ router.get('/all', async function (req, res, next) {
 });
 
 router.get('/search/:term', function (req, res, next) {
+  var term = req.params.term;
+  var query = db.prepare(`
+    SELECT * FROM Courses
+    WHERE code LIKE ?
+    OR title LIKE ?
+    OR program LIKE ?
+    OR level LIKE ?
+    OR semester = ?
+    OR teacher LIKE ?
+    OR timeslot = ?;
+  `);
+  termLike = '%' + term + '%';
+  query.all(
+    [termLike, termLike, termLike, term, termLike, term],
+    (err, tuples) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send({ error: 'Internal server error' });
+      } else if (tuples.length) {
+        for (const tuple of tuples) {
+          console.log('Matches: ' + tuple.code);
+        }
+        res.render('courses', tuples);
+      } else {
+        res.status(404).send({ error: 'No courses found' });
+      }
+    }
+  );
+});
+
+router.get('/old/search/:term', function (req, res, next) {
   var term = req.params.term;
   var data = [];
   courses.forEach((course) => {
@@ -47,7 +78,7 @@ router.get('/search/:term', function (req, res, next) {
 
 router.get('/:courseID', function (req, res, next) {
   var courseID = req.params.courseID;
-  var query = db.prepare(`SELECT * FROM Courses WHERE code = ?`);
+  var query = db.prepare(`SELECT * FROM Courses WHERE code = ?;`);
   query.get([courseID], (err, tuple) => {
     if (err) {
       console.error(err);
@@ -58,21 +89,6 @@ router.get('/:courseID', function (req, res, next) {
       res.status(404).send({ error: 'Course not found' });
     }
   });
-});
-
-router.get('/old/:courseID', function (req, res, next) {
-  var courseID = req.params.courseID;
-  var data = [];
-  courses.forEach((course) => {
-    if (course.id === courseID) {
-      data.push(course);
-    }
-  });
-  if (data.length === 0) {
-    res.status(404).send({ error: 'No courses found' });
-  } else {
-    res.render('course', data);
-  }
 });
 
 //Everything below this requires auth
