@@ -57,12 +57,9 @@ router.post('/', function (req, res) {
     console.log(tuple);
   });
 
-  var someSQLReturn = true;
-  if (someSQLReturn) {
-    res.redirect('user');
-  } else {
-    res.status(500).send('Something went wrong');
-  }
+  req.session.loggedin = true;
+  req.session.email = student.email;
+  res.redirect('user');
 });
 
 router.get('/succes', function (req, res, next) {
