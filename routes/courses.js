@@ -16,7 +16,6 @@ router.get('/all', async function (req, res, next) {
       if (tuples.length === 0) {
         res.status(404).send({ error: 'No courses found' });
       } else {
-        console.log(tuples);
         res.render('courses', tuples);
       }
     }
@@ -47,6 +46,21 @@ router.get('/search/:term', function (req, res, next) {
 });
 
 router.get('/:courseID', function (req, res, next) {
+  var courseID = req.params.courseID;
+  var query = db.prepare(`SELECT * FROM Courses WHERE code = ?`);
+  query.get([courseID], (err, tuple) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send({ error: 'Internal server error' });
+    } else if (tuple) {
+      res.render('course', tuple);
+    } else {
+      res.status(404).send({ error: 'Course not found' });
+    }
+  });
+});
+
+router.get('/old/:courseID', function (req, res, next) {
   var courseID = req.params.courseID;
   var data = [];
   courses.forEach((course) => {
