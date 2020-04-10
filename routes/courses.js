@@ -108,9 +108,30 @@ router.post('/:courseID/register', async function (req, res, next) {
 router.post('/:courseID/unregister', async function (req, res, next) {
   var courseID = req.params.courseID;
   var email = req.session.email;
-  //Do some SQL here which deletes courseID of array in user entry of database
-  //And await on it
-  //For testing:
-  res.render('unregistercoursesucces');
+  var query = db.prepare(`SELECT sid FROM Students WHERE email = ?`);
+  query.get([email], (err, value) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send({ error: 'Internal server error' });
+    } else if (value) {
+      removeRegistration(value.sid);
+    } else {
+      res.status(400).send({ error: 'Bad request' });
+    }
+  });
+  function removeRegistration(sid) {
+    var deletion = db.prepare(
+      `DELETE FROM Registrations WHERE sid = ? AND code = ?;`
+    );
+    deletion.run([sid, courseID], function (err) {
+      if (err) {
+        console.error(err);
+        res.status(500).send({ error: 'Internal server error' });
+      } else {
+        console.log(email, ' is unregistered for ', courseID);
+        res.render('unregistercoursesucces');
+      }
+    });
+  }
 });
 module.exports = router;
