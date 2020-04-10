@@ -2,7 +2,10 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-
+#error{
+  color: red;
+  position: absolute;
+}
 a {
   color: orange;
 }

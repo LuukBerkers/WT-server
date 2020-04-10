@@ -4,8 +4,10 @@ module.exports = {
             next();
         } else {
             if (process.env.NODE_ENV === 'development'){
+                req.session.error = "Login is required for this page";
                 res.redirect('/login');
             } else {
+                req.session.error = "Login is required for this page";
                 res.redirect('/group28/login');
             }
             
