@@ -23,7 +23,7 @@ sql = [
     3,
     'A class about web technology, which has a test that is way to long',
     'S.A. Sosnovsky',
-    'public/images/sosnovsky.jpg',
+    'images/sosnovsky.jpg',
     'D'
   );`,
 ];

@@ -3,31 +3,24 @@ var router = express.Router();
 var auth = require('../auth');
 var sqlite = require('sqlite3');
 
-//This should probably come from a database, but for testing:
-var courses = [
-  {
-    code: 'INFOB2WT',
-    title: 'Web technology',
-    program: 'Computer Science',
-    level: 'BSc',
-    semester: 3,
-    description:
-      'A class about web technology, which has a test that is way to long',
-    teacher: 'S.A. Sosnovsky',
-    photo: 'public/images/sosnovsky.jpg',
-    timeslot: 'D',
-  },
-];
+var dbFile = 'database.db';
+db = new sqlite.Database(dbFile);
 
-var database = 'database.db';
-
-router.get('/all', function (req, res, next) {
-  var data = courses;
-  if (data.length === 0) {
-    res.status(404).send({ error: 'No courses found' });
-  } else {
-    res.render('courses', data);
-  }
+router.get('/all', async function (req, res, next) {
+  var coursesQuery = `SELECT * FROM Courses;`;
+  db.all(coursesQuery, [], (err, tuples) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send({ error: 'Internal server error' });
+    } else {
+      if (tuples.length === 0) {
+        res.status(404).send({ error: 'No courses found' });
+      } else {
+        console.log(tuples);
+        res.render('courses', tuples);
+      }
+    }
+  });
 });
 
 router.get('/search/:term', function (req, res, next) {

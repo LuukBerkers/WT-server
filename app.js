@@ -16,7 +16,6 @@ db.serialize(async function () {
   if (!exists) {
     await dbDef.dbInit(db);
   }
-  db.close();
 });
 
 var indexRouter = require('./routes/index');
