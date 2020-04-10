@@ -57,8 +57,8 @@ router.get('/:courseID', function (req, res, next) {
   var courseID = req.params.courseID;
   var data = [];
   courses.forEach((course) => {
-    if (course.id === courseID) {
-      data.push(course);
+    if (course.code === courseID) {
+      data = course;
     }
   });
   if (data.length === 0) {
