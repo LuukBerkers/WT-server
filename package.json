@@ -11,6 +11,7 @@
     "express": "~4.16.1",
     "express-session": "^1.17.0",
     "morgan": "~1.9.1",
-    "my-sql": "^1.2.15"
+    "my-sql": "^1.2.15",
+    "sqlite3": "^4.1.1"
   }
 }
