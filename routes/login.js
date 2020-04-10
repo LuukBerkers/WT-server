@@ -12,7 +12,6 @@ router.get('/', function(req, res, next) {
 		var error = req.session.error;
 		req.session.error = undefined;
 		res.render("login", {error: error});
-		
 	  } else {
 		res.render("login", {error: ""});
 	  }
