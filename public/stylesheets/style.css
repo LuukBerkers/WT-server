@@ -34,3 +34,7 @@ form.searchbar button {
 form.searchbar button:hover {
   background: rgb(104, 140, 155)
 }
+
+img {
+  border-radius: 10px;
+}
