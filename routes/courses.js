@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var auth = require('../auth');
 var path = require('path');
+var sqlite = require('sqlite3');
 
 //This should probably come from a database, but for testing:
 var courses = [
@@ -18,6 +19,8 @@ var courses = [
     timeslot: 'D',
   },
 ];
+
+var database = "database.db"
 
 router.get('/all', function (req, res, next) {
   if (courses.length === 0) {

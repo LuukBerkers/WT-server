@@ -4,6 +4,17 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
 var auth = require('./auth');
+var fs = require('fs');
+var sqlite = require('sqlite3').verbose();
+
+var dbFile = "database.db";
+var exists = fs.existsSync(dbFile);
+db = new sqlite.Database(dbFile);
+db.serialize(function() {
+	if (!exists) {
+		db.run("CREATE TABLE Courses (code TEXT)")
+	}
+});
 
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
