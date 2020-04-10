@@ -29,9 +29,9 @@ sql = [
 ];
 
 module.exports = {
-  dbInit: function (db) {
+  dbInit: async function (db) {
     for (const statement of sql) {
-      db.run(statement);
+      await db.run(statement);
     }
   },
 };
