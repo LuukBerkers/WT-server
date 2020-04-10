@@ -8,8 +8,8 @@ db = new sqlite.Database(dbFile);
 
 router.get('/all', function (req, res, next) {
   //Search:
-  if (req.query.search && req.query.search!==""){
-    var term = req.query.search;
+  if (req.query.search && req.query.search.trim()!==""){
+    var term = req.query.search.trim();
     var query = db.prepare(`
       SELECT * FROM Courses
       WHERE code LIKE ?
