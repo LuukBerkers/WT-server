@@ -12,10 +12,11 @@ var dbFile = 'database.db';
 var exists = fs.existsSync(dbFile);
 db = new sqlite.Database(dbFile);
 
-db.serialize(function () {
+db.serialize(async function () {
   if (!exists) {
-    dbDef.dbInit(db);
+    await dbDef.dbInit(db);
   }
+  db.close();
 });
 
 var indexRouter = require('./routes/index');

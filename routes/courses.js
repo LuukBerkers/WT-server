@@ -14,19 +14,19 @@ var courses = [
     description:
       'A class about web technology, which has a test that is way to long',
     teacher: 'S.A. Sosnovsky',
-    photo: '"public/images/sosnovsky.jpg"',
+    photo: 'public/images/sosnovsky.jpg',
     timeslot: 'D',
   },
 ];
 
-var database = "database.db"
+var database = 'database.db';
 
 router.get('/all', function (req, res, next) {
   var data = courses;
   if (data.length === 0) {
     res.status(404).send({ error: 'No courses found' });
   } else {
-    res.render("courses", data);
+    res.render('courses', data);
   }
 });
 
@@ -49,7 +49,7 @@ router.get('/search/:term', function (req, res, next) {
   if (data.length === 0) {
     res.status(404).send({ error: 'No courses found' });
   } else {
-    res.render("courses", data);
+    res.render('courses', data);
   }
 });
 
@@ -57,14 +57,14 @@ router.get('/:courseID', function (req, res, next) {
   var courseID = req.params.courseID;
   var data = [];
   courses.forEach((course) => {
-    if (course.code === courseID) {
-      data = course;
+    if (course.id === courseID) {
+      data.push(course);
     }
   });
   if (data.length === 0) {
     res.status(404).send({ error: 'No courses found' });
   } else {
-    res.render("course", data);
+    res.render('course', data);
   }
 });
 
@@ -79,7 +79,7 @@ router.put('/:courseID/register', async function (req, res, next) {
   //Also check if user has right qualifications in the database for the course
   //For testing:
   console.log(email, ' is registered for ', courseID);
-  res.render("registercoursesucces");
+  res.render('registercoursesucces');
 });
 
 router.delete('/:courseID/unregister', async function (req, res, next) {
@@ -88,6 +88,6 @@ router.delete('/:courseID/unregister', async function (req, res, next) {
   //Do some SQL here which deletes courseID of array in user entry of database
   //And await on it
   //For testing:
-  res.render("unregistercoursesucces");
+  res.render('unregistercoursesucces');
 });
 module.exports = router;
