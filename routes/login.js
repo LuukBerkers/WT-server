@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
   if (!req.session.loggedin){
     res.sendFile(path.join(__dirname+'../../public/login.html'));
   } else {
-    res.redirect('login/succes');
+    res.redirect('user');
   }
 });
 
@@ -33,7 +33,7 @@ router.post('/', function(req, res) {
 			if (results.length > 0) {
 				req.session.loggedin = true;
 				req.session.email = email;
-				res.redirect('login/succes');
+				res.redirect('user');
 			} else {
 				res.send('Incorrect Email and/or Password!');
 			}			
@@ -42,13 +42,4 @@ router.post('/', function(req, res) {
 		res.send('Please enter Email and Password!'); //Shouldn't happen because of required fields, but ya never know
 	}
 });
-
-
-//Everything below this requires auth
-router.use(auth.loginRequired);
-
-router.get('/succes', function(req, res, next) {
-	res.sendFile(path.join(__dirname+'../../public/loginsucces.html'));
-});
-
 module.exports = router;
