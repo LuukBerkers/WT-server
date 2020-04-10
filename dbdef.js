@@ -26,18 +26,18 @@ sql = [
     'images/sosnovsky.jpg',
     'D'
   );`,
-  // `
-  // INSERT INTO Courses VALUES (
-  //   'INFODB',
-  //   'Databases',
-  //   'Computer Science',
-  //   'BSc',
-  //   3,
-  //   NULL,
-  //   'drs. H. Philippi',
-  //   NULL,
-  //   'B'
-  // );`,
+  `
+  INSERT INTO Courses VALUES (
+    'INFODB',
+    'Databases',
+    'Computer Science',
+    'BSc',
+    3,
+    NULL,
+    'drs. H. Philippi',
+    NULL,
+    'B'
+  );`,
 ];
 
 module.exports = {
