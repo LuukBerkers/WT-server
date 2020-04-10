@@ -22,10 +22,22 @@ sql = [
     'BSc',
     3,
     'A class about web technology, which has a test that is way to long',
-    'S.A. Sosnovsky',
+    'dr. S.A. Sosnovsky',
     'images/sosnovsky.jpg',
     'D'
   );`,
+  // `
+  // INSERT INTO Courses VALUES (
+  //   'INFODB',
+  //   'Databases',
+  //   'Computer Science',
+  //   'BSc',
+  //   3,
+  //   NULL,
+  //   'drs. H. Philippi',
+  //   NULL,
+  //   'B'
+  // );`,
 ];
 
 module.exports = {
