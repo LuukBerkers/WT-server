@@ -12,7 +12,7 @@ var coursesRouter = require('./routes/courses');
 var registerRouter = require('./routes/register');
 
 var app = express();
-
+app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
