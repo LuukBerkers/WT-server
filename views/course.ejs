@@ -1,7 +1,7 @@
 <html>
   <head>
 		<title><%= title %> - Course Page</title>
-		<link rel="stylesheet" href="stylesheets/style.css">
+		<link rel="stylesheet" href="../stylesheets/style.css">
   </head>
   <body>
     <header>
@@ -9,10 +9,10 @@
     </header>
     <nav>
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="courses.html">Courses</a></li>
-        <li><a href="login.html">Login</a></li>
-        <li><a href="user.html">Profile</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/courses/all">Courses</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/user">Profile</a></li>
       </ul>
     </nav>
     <t2>Coursecode: <%= code %></t2>
@@ -40,7 +40,12 @@
 		</table>
 	<p>Course description: <%= description %></p>
 	<p>Teacher: <%= teacher %></p>
-	<img src=<%= photo %>>
-	<button type="button">Register or Unregister from this Course</button>
+	<img src='../<%= photo %>''>
+  <form action="/courses/<%= code %>/register" method="POST">
+    <input type="submit" value="Register">
+  </form>
+  <form action="/courses/<%= code %>/unregister" method="POST">
+    <input type="submit" value="Unregister">
+  </form>
   </body>
 </html>
