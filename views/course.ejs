@@ -1,11 +1,11 @@
 <html>
   <head>
-    <title><%= title %> - Course Page</title>
-    <link rel="stylesheet" href="stylesheets/style.css">
+		<title><%= title %> - Course Page</title>
+		<link rel="stylesheet" href="stylesheets/style.css">
   </head>
   <body>
     <header>
-      <t1><%= title %></t1>
+      <h1><%= title %></h1>
     </header>
     <nav>
       <ul>
@@ -15,6 +15,7 @@
         <li><a href="user.html">Profile</a></li>
       </ul>
     </nav>
+    <t2>Coursecode: <%= code %></t2>
 	  <table>
  	   <tr>
    		  <th>Code</th>
@@ -39,7 +40,7 @@
 		</table>
 	<p>Course description: <%= description %></p>
 	<p>Teacher: <%= teacher %></p>
-  <img src=<%= photo %>>
-  <button type="button">Register or Unregister from this Course</button>
+	<img src=<%= photo %>>
+	<button type="button">Register or Unregister from this Course</button>
   </body>
 </html>
