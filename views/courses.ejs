@@ -47,11 +47,10 @@
         <li><a href="/user">Profile</a></li>
       </ul>
     </nav>
-    <form class="searchbar" action="search">
-      <input type="text" placeholder="Coursetitle..." name="searchrequest">
-      <button type="submit">Search</button>
+    <form action="/courses/all" method="GET">
+        <input type="text" name="search" placeholder="Zoekopdracht">
+        <input type="submit">
     </form>
-    <article id="courses">
-    </article>
+    <article id="courses"></article>
   </body>
 </html>

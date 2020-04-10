@@ -7,72 +7,51 @@ var dbFile = 'database.db';
 db = new sqlite.Database(dbFile);
 
 router.get('/all', function (req, res, next) {
-  var coursesQuery = `SELECT * FROM Courses;`;
-  db.all(coursesQuery, [], (err, tuples) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send({ error: 'Internal server error' });
-    } else {
-      if (!tuples.length) {
-        res.status(404).send({ error: 'No courses found' });
-      } else {
-        res.render('courses', {courses: tuples});
+  //Search:
+  if (req.query.search && req.query.search!==""){
+    var term = req.query.search;
+    var query = db.prepare(`
+      SELECT * FROM Courses
+      WHERE code LIKE ?
+      OR title LIKE ?
+      OR program LIKE ?
+      OR level LIKE ?
+      OR semester = ?
+      OR teacher LIKE ?
+      OR timeslot = ?;
+    `);
+    termLike = '%' + term + '%';
+    query.all(
+      [termLike, termLike, termLike, term, termLike, term],
+      (err, tuples) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send({ error: 'Internal server error' });
+        } else if (tuples.length) {
+          for (const tuple of tuples) {
+            console.log('Matches: ' + tuple.code);
+          }
+          res.render('courses', {courses: tuples});
+        } else {
+          res.render('courses', {courses: []});
+        }
       }
-    }
-  });
-});
-
-router.get('/search/:term', function (req, res, next) {
-  var term = req.params.term;
-  var query = db.prepare(`
-    SELECT * FROM Courses
-    WHERE code LIKE ?
-    OR title LIKE ?
-    OR program LIKE ?
-    OR level LIKE ?
-    OR semester = ?
-    OR teacher LIKE ?
-    OR timeslot = ?;
-  `);
-  termLike = '%' + term + '%';
-  query.all(
-    [termLike, termLike, termLike, term, termLike, term],
-    (err, tuples) => {
+    );
+  //All items:
+  } else {
+    var coursesQuery = `SELECT * FROM Courses;`;
+    db.all(coursesQuery, [], (err, tuples) => {
       if (err) {
         console.error(err);
         res.status(500).send({ error: 'Internal server error' });
-      } else if (tuples.length) {
-        for (const tuple of tuples) {
-          console.log('Matches: ' + tuple.code);
-        }
-        res.render('courses', tuples);
       } else {
-        res.status(404).send({ error: 'No courses found' });
+        if (!tuples.length) {
+          res.render('courses', {courses: []});
+        } else {
+          res.render('courses', {courses: tuples});
+        }
       }
-    }
-  );
-});
-
-router.get('/old/search/:term', function (req, res, next) {
-  var term = req.params.term;
-  var data = [];
-  courses.forEach((course) => {
-    if (
-      course.code === term ||
-      course.title === term ||
-      course.program === term ||
-      course.level === term ||
-      course.semester === term ||
-      course.teacher === term ||
-      course.timeslot === term
-    ) {
-      data.push(course);
-    }
-  });
-  if (data.length === 0) {
-    res.status(404).send({ error: 'No courses found' });
-  } else {
-    res.render('courses', data);
+    });
   }
 });
 
