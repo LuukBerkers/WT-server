@@ -1,7 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var sqlite = require('sqlite3');
-const crypto = require('crypto');
+// It is possible for Node.js to be built without including support for the
+// crypto module. In such cases, calling require('crypto') will result in an
+// error being thrown.
+try {
+  crypto = require('crypto');
+} catch (err) {
+  console.log('crypto support is disabled!');
+}
 
 var dbFile = 'database.db';
 db = new sqlite.Database(dbFile);
