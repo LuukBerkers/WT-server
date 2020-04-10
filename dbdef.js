@@ -7,7 +7,7 @@ sql = [
     code TEXT PRIMARY KEY,
     title TEXT,
     program TEXT,
-    level TEXT,
+    level CHAR(3) CHECK(level IN ('BSc', 'MSc')),
     semester INT CHECK(semester <= 4),
     description TEXT,
     teacher TEXT,
@@ -37,6 +37,15 @@ sql = [
     'drs. H. Philippi',
     NULL,
     'B'
+  );`,
+  `CREATE TABLE Students (
+    id INT PRIMARY KEY,
+    email TEXT UNIQUE,
+    password CHAR(64),
+    firstname TEXT,
+    lastname TEXT,
+    program TEXT,
+    level CHAR(3) CHECK(level IN ('BSc', 'MSc'))
   );`,
 ];
 

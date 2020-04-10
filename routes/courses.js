@@ -16,7 +16,7 @@ router.get('/all', function (req, res, next) {
       if (!tuples.length) {
         res.status(404).send({ error: 'No courses found' });
       } else {
-        res.render('courses', {courses: tuples});
+        res.render('courses', { courses: tuples });
       }
     }
   });
@@ -51,29 +51,6 @@ router.get('/search/:term', function (req, res, next) {
       }
     }
   );
-});
-
-router.get('/old/search/:term', function (req, res, next) {
-  var term = req.params.term;
-  var data = [];
-  courses.forEach((course) => {
-    if (
-      course.code === term ||
-      course.title === term ||
-      course.program === term ||
-      course.level === term ||
-      course.semester === term ||
-      course.teacher === term ||
-      course.timeslot === term
-    ) {
-      data.push(course);
-    }
-  });
-  if (data.length === 0) {
-    res.status(404).send({ error: 'No courses found' });
-  } else {
-    res.render('courses', data);
-  }
 });
 
 router.get('/:courseID', function (req, res, next) {
