@@ -13,29 +13,19 @@ db = new sqlite.Database(dbFile);
 
 db.serialize(function () {
   if (!exists) {
-    dbDef = `
-    CREATE TABLE Courses (
-      code TEXT PRIMARY KEY,
-      title TEXT,
-      program TEXT,
-      level TEXT,
-      semester INT CHECK(semester <= 4),
-      description TEXT,
-      teacher TEXT,
-      photo TEXT,
-      timeslot CHAR(1) CHECK(timeslot IN 'A', 'B', 'C', 'D')
-    )
-    `
-    db.run(dbDef);
+    fs.readFile('dbdef.sql', 'utf8', function (err, dbDef) {
+      if (err) return console.error(err.message);
+      db.run(dbDef);
+    });
   }
 });
 
-db.close((err) => {
-  if (err) {
-    return console.error(err.message);
-  }
-  console.log('Close the database connection.');
-});
+// db.close((err) => {
+//   if (err) {
+//     return console.error(err.message);
+//   }
+//   console.log('Close the database connection.');
+// });
 
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
