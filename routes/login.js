@@ -7,7 +7,6 @@ const crypto = require('crypto');
 var dbFile = 'database.db';
 db = new sqlite.Database(dbFile);
 
-<<<<<<< HEAD
 router.get('/', function (req, res, next) {
   if (!req.session.loggedin) {
     if (req.session.error) {
@@ -17,17 +16,6 @@ router.get('/', function (req, res, next) {
     } else {
       res.render('login', { error: '' });
     }
-=======
-router.get('/', function(req, res, next) {
-  if (!req.session.loggedin){
-	  if(req.session.error){
-		var error = req.session.error;
-		req.session.error = undefined;
-		res.render("login", {error: error});
-	  } else {
-		res.render("login", {error: ""});
-	  }
->>>>>>> 621b641a6b41768c1068ff2c98deb49c5411121b
   } else {
     res.redirect('user');
   }
