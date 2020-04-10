@@ -39,7 +39,7 @@ sql = [
     'B'
   );`,
   `CREATE TABLE Students (
-    id INTEGER PRIMARY KEY,
+    sid INTEGER PRIMARY KEY,
     email TEXT NOT NULL UNIQUE,
     password CHAR(64) NOT NULL,
     firstname TEXT NOT NULL,
@@ -47,6 +47,11 @@ sql = [
     program TEXT,
     level CHAR(3) CHECK(level IN ('BSc', 'MSc'))
   );`,
+  `CREATE TABLE Registrations (
+    sid INTEGER REFERENCES Students(sid),
+    code TEXT REFERENCES Courses(code),
+    PRIMARY KEY(sid, code)
+  );`
 ];
 
 module.exports = {

@@ -8,7 +8,7 @@ db = new sqlite.Database(dbFile);
 
 router.get('/all', function (req, res, next) {
   //Search:
-  if (req.query.search && req.query.search.trim()!==""){
+  if (req.query.search && req.query.search.trim() !== '') {
     var term = req.query.search.trim();
     var query = db.prepare(`
       SELECT * FROM Courses
@@ -31,13 +31,13 @@ router.get('/all', function (req, res, next) {
           for (const tuple of tuples) {
             console.log('Matches: ' + tuple.code);
           }
-          res.render('courses', {courses: tuples});
+          res.render('courses', { courses: tuples });
         } else {
-          res.render('courses', {courses: []});
+          res.render('courses', { courses: [] });
         }
       }
     );
-  //All items:
+    //All items:
   } else {
     var coursesQuery = `SELECT * FROM Courses;`;
     db.all(coursesQuery, [], (err, tuples) => {
@@ -46,9 +46,9 @@ router.get('/all', function (req, res, next) {
         res.status(500).send({ error: 'Internal server error' });
       } else {
         if (!tuples.length) {
-          res.render('courses', {courses: []});
+          res.render('courses', { courses: [] });
         } else {
-          res.render('courses', {courses: tuples});
+          res.render('courses', { courses: tuples });
         }
       }
     });
@@ -76,12 +76,33 @@ router.use(auth.loginRequired);
 router.post('/:courseID/register', async function (req, res, next) {
   var courseID = req.params.courseID;
   var email = req.session.email;
-  //Do some SQL here which adds courseID to array in user entry of database
-  //And await on it
-  //Also check if user has right qualifications in the database for the course
-  //For testing:
-  console.log(email, ' is registered for ', courseID);
-  res.render('registercoursesucces');
+  var query = db.prepare(`SELECT sid FROM Students WHERE email = ?`);
+  query.get([email], (err, value) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send({ error: 'Internal server error' });
+    } else if (value) {
+      addRegistration(value.sid);
+    } else {
+      res.status(400).send({ error: 'Bad request' });
+    }
+  });
+  function addRegistration(sid) {
+    var insertion = db.prepare(`INSERT INTO Registrations VALUES (?, ?)`);
+    insertion.run([sid, courseID], function (err) {
+      if (err) {
+        console.error(err);
+        if (err.errno === 19) {
+          res.status(400).send('You are already registered for this course');
+        } else {
+          res.status(500).send({ error: 'Internal server error' });
+        }
+      } else {
+        console.log(email, ' is registered for ', courseID);
+        res.render('registercoursesucces');
+      }
+    });
+  }
 });
 
 router.post('/:courseID/unregister', async function (req, res, next) {

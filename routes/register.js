@@ -58,8 +58,11 @@ router.post('/', function (req, res) {
     function (err) {
       if (err) {
         console.error(err);
-        if (err.errno === 19) res.status(400).send('Email address is already registered')
-      } else success = true;
+        if (err.errno === 19)
+          res.status(400).send('Email address is already registered');
+      } else {
+        success = true;
+      }
     }
   );
 
