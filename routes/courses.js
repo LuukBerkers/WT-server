@@ -22,10 +22,11 @@ var courses = [
 var database = "database.db"
 
 router.get('/all', function (req, res, next) {
-  if (courses.length === 0) {
+  var data = courses;
+  if (data.length === 0) {
     res.status(404).send({ error: 'No courses found' });
   } else {
-    res.send(courses);
+    res.render("courses", data);
   }
 });
 
@@ -48,7 +49,7 @@ router.get('/search/:term', function (req, res, next) {
   if (data.length === 0) {
     res.status(404).send({ error: 'No courses found' });
   } else {
-    res.send(data);
+    res.render("courses", data);
   }
 });
 
@@ -63,7 +64,7 @@ router.get('/:courseID', function (req, res, next) {
   if (data.length === 0) {
     res.status(404).send({ error: 'No courses found' });
   } else {
-    res.send(data);
+    res.render("course", data);
   }
 });
 

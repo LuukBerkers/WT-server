@@ -34,8 +34,7 @@ router.get('/', function(req, res, next) {
   if (!data){
     res.status(404).send({ error: "No users found" });
   } else {
-    //res.send(data);
-    res.render("user");
+    res.render("user", data);
   }
 });
 
