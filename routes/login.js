@@ -39,7 +39,7 @@ router.post('/', function(req, res) {
 			}
 		});
 	} else {
-		res.send('Please enter Email and Password!'); //Shouldn't happen because of required fields, but ya never know
+		res.render("login", {error: 'Please enter email and password!'});
 	}
 });
 module.exports = router;
