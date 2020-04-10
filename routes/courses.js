@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var auth = require('../auth');
+var path = require('path');
 
 //This should probably come from a database, but for testing:
 var courses = [
@@ -75,7 +76,7 @@ router.put('/:courseID/register', async function (req, res, next) {
   //Also check if user has right qualifications in the database for the course
   //For testing:
   console.log(email, ' is registered for ', courseID);
-  res.status(204).send();
+  res.sendFile(path.join(__dirname+'../../public/registersucces.html'));
 });
 
 router.delete('/:courseID/unregister', async function (req, res, next) {
@@ -84,7 +85,6 @@ router.delete('/:courseID/unregister', async function (req, res, next) {
   //Do some SQL here which deletes courseID of array in user entry of database
   //And await on it
   //For testing:
-  console.log(email, ' is unregistered for ', courseID);
-  res.status(204).send();
+  res.sendFile(path.join(__dirname+'../../public/unregistersucces.html'));
 });
 module.exports = router;
