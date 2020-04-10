@@ -1,15 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var mysql = require('mysql');
 var auth = require('../auth');
+var sqlite = require('sqlite3');
 
-//Ik weet niet echt hoe al deze SQL shit werkt, maar dit is gevolgd uit tutorial: https://codeshack.io/basic-login-system-nodejs-express-mysql/
-var connection = mysql.createConnection({
-	host     : 'localhost',
-	user     : 'root',
-	password : '',
-	database : 'login'
-});
+var dbFile = 'database.db';
+db = new sqlite.Database(dbFile);
 
 router.get('/', function(req, res, next) {
   if (!req.session.loggedin){
@@ -30,22 +25,21 @@ router.post('/', function(req, res) {
 	var email = req.body.email;
 	var password = req.body.password;
 	if (email && password) {
-		//connection.query('SELECT * FROM accounts WHERE email = ? AND password = ?', [email, password], function(error, results, fields) {
-    //Or some other fancy SQL
-    //For testing:
-    var results = [];
-    results.length = 1;
-    //
-			if (results.length > 0) {
+		var query = db.prepare(`SELECT * FROM Students WHERE email = ? AND password = ?;`);
+		query.get([email, password], (err, tuple) => {
+			if(err){
+				console.error(err);
+				res.status(500).send({ error: 'Internal server error' });
+			} else if (tuple){
 				req.session.loggedin = true;
 				req.session.email = email;
 				res.redirect('user');
 			} else {
-				res.send('Incorrect Email and/or Password!');
-			}			
-		//});
+				res.render("login", {error: 'Incorrect Email and/or Password!'});
+			}
+		});
 	} else {
-		res.send('Please enter Email and Password!'); //Shouldn't happen because of required fields, but ya never know
+		res.render("login", {error: 'Please enter email and password!'});
 	}
 });
 module.exports = router;
