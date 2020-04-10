@@ -2,6 +2,38 @@
   <head>
 		<title>Courses</title>
     <link rel="stylesheet" href="../stylesheets/style.css">
+    <script>
+      window.onload = function(){
+        var courses = <%- JSON.stringify(courses) %>; //Don't change, this actually works
+        console.log(courses);
+        
+        for(var i = 0; i < courses.length; i++){
+          var course = courses[0];
+          var sec = document.createElement('section');
+          sec.href = `/courses/${course.code}`
+
+          var title = document.createElement('h2');
+          var title_text = document.createTextNode(`${course.title}`);
+          title.appendChild(title_text);
+
+          var code = document.createElement('a');
+          code.href = `/courses/${course.code}`
+          var code_text = document.createTextNode(`Code: ${course.code}`);
+          code.appendChild(code_text);
+
+          var description = document.createElement('p');
+          var description_text = document.createTextNode(`${course.description}`);
+          description.appendChild(description_text);
+
+          sec.appendChild(title);
+          sec.appendChild(code);
+          sec.appendChild(description);
+
+          var element = document.getElementById("courses");
+          element.appendChild(sec);
+        }
+      };
+    </script>
   </head>
   <body>
     <header>
@@ -19,13 +51,7 @@
       <input type="text" placeholder="Coursetitle..." name="searchrequest">
       <button type="submit">Search</button>
     </form>
-    <article>
-      <section type="course1">
-        <p></p>
-      </section>
-      <section type="course2">
-
-      </section>
+    <article id="courses">
     </article>
   </body>
 </html>

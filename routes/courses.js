@@ -16,7 +16,7 @@ router.get('/all', async function (req, res, next) {
       if (tuples.length === 0) {
         res.status(404).send({ error: 'No courses found' });
       } else {
-        res.render('courses', tuples);
+        res.render('courses', {courses: tuples});
       }
     }
   });
