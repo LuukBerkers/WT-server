@@ -44,22 +44,34 @@ router.post('/', function (req, res) {
     VALUES (?, ?, ?, ?, ?, ?);
   `);
 
-  insertion.run([
-    student.email,
-    student.password,
-    student.first_name,
-    student.last_name,
-    student.program,
-    student.level,
-  ]);
+  success = false;
+
+  insertion.run(
+    [
+      student.email,
+      student.password,
+      student.first_name,
+      student.last_name,
+      student.program,
+      student.level,
+    ],
+    function (err) {
+      if (err) {
+        console.error(err);
+        if (err.errno === 19) res.status(400).send('Email address is already registered')
+      } else success = true;
+    }
+  );
 
   db.each(`SELECT * FROM Students`, [], (err, tuple) => {
     console.log(tuple);
   });
 
-  req.session.loggedin = true;
-  req.session.email = student.email;
-  res.redirect('user');
+  if (success) {
+    req.session.loggedin = true;
+    req.session.email = student.email;
+    res.redirect('user');
+  }
 });
 
 router.get('/succes', function (req, res, next) {
