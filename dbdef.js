@@ -40,10 +40,10 @@ sql = [
   );`,
   `CREATE TABLE Students (
     id INT PRIMARY KEY,
-    email TEXT UNIQUE,
-    password CHAR(64),
-    firstname TEXT,
-    lastname TEXT,
+    email TEXT NOT NULL UNIQUE,
+    password CHAR(64) NOT NULL,
+    firstname TEXT NOT NULL,
+    lastname TEXT NOT NULL,
     program TEXT,
     level CHAR(3) CHECK(level IN ('BSc', 'MSc'))
   );`,
