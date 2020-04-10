@@ -7,13 +7,21 @@ var auth = require('./auth');
 var fs = require('fs');
 var sqlite = require('sqlite3').verbose();
 
-var dbFile = "database.db";
+var dbFile = 'database.db';
 var exists = fs.existsSync(dbFile);
 db = new sqlite.Database(dbFile);
-db.serialize(function() {
-	if (!exists) {
-		db.run("CREATE TABLE Courses (code TEXT)")
-	}
+
+db.serialize(function () {
+  if (!exists) {
+    db.run('CREATE TABLE Courses (code TEXT)');
+  }
+});
+
+db.close((err) => {
+  if (err) {
+    return console.error(err.message);
+  }
+  console.log('Close the database connection.');
 });
 
 var indexRouter = require('./routes/index');
@@ -29,11 +37,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({
-	secret: process.env.SESSION_SECRET, //Normally start.sh would be gitignored, and the session secret hidden
-	resave: true,
-	saveUninitialized: true
-}));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET, //Normally start.sh would be gitignored, and the session secret hidden
+    resave: true,
+    saveUninitialized: true,
+  })
+);
 
 app.use('/', indexRouter);
 app.use('/user', auth.loginRequired, userRouter); //If all paths require login, we can put it here as well
