@@ -32,7 +32,6 @@ router.post('/', function (req, res) {
     res.status(400).send();
     throw e;
   }
-  console.log(student);
   var insertion = db.prepare(`
     INSERT INTO Students(
       email,
