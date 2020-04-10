@@ -3,8 +3,6 @@ var router = express.Router();
 var sqlite = require('sqlite3');
 const crypto = require('crypto');
 
-hasher = crypto.createHash('sha256');
-
 var dbFile = 'database.db';
 db = new sqlite.Database(dbFile);
 
@@ -21,7 +19,10 @@ router.post('/', function (req, res) {
   try {
     student = {
       email: req.body.email,
-      password: hasher.update(req.body.password).digest('hex'),
+      password: crypto
+        .createHash('sha256')
+        .update(req.body.password)
+        .digest('hex'),
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       program: req.body.program,
@@ -43,6 +44,19 @@ router.post('/', function (req, res) {
     )
     VALUES (?, ?, ?, ?, ?, ?);
   `);
+
+  insertion.run([
+    student.email,
+    student.password,
+    student.first_name,
+    student.last_name,
+    student.program,
+    student.level,
+  ]);
+
+  db.each(`SELECT * FROM Students`, [], (err, tuple) => {
+    console.log(tuple);
+  });
 
   var someSQLReturn = true;
   if (someSQLReturn) {

@@ -8,7 +8,7 @@ sql = [
     title TEXT,
     program TEXT,
     level CHAR(3) CHECK(level IN ('BSc', 'MSc')),
-    semester INT CHECK(semester <= 4),
+    semester INTEGER CHECK(semester <= 4),
     description TEXT,
     teacher TEXT,
     photo TEXT,
@@ -39,7 +39,7 @@ sql = [
     'B'
   );`,
   `CREATE TABLE Students (
-    id INT PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
     email TEXT NOT NULL UNIQUE,
     password CHAR(64) NOT NULL,
     firstname TEXT NOT NULL,
