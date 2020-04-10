@@ -4,7 +4,7 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: orange;
 }
 
 h1 {
@@ -25,21 +25,49 @@ nav {
 
 nav ul {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
+  margin: 10px 0px;
   overflow: hidden;
-  color: rgb(104, 140, 155);
-  background-color: rgb(6, 24, 31);
+  color: white;
+  background-color: gold;
+  padding: 10px;
 }
 
-form.searchbar button {
-  background: rgb(22, 93, 121);
+nav ul li {
+  display: inline;
+  margin: 10px;
 }
 
-form.searchbar button:hover {
-  background: rgb(104, 140, 155);
+nav ul li:hover {
+  border-bottom: 2px solid red;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: black;
 }
 
 img {
   border-radius: 10px;
+}
+
+section{
+  border: 2px solid black;
+  margin: 10px;
+  padding: 10px;
+}
+
+input[type=text]{
+  margin: 10px;
+  height: 30px;
+  width: 250px;
+}
+
+input[type=submit]{
+  width: 100px;
+  height: 30px;
+  margin: 10px;
+}
+
+input[type=submit]:hover{
+  border: 2px solid gold;
 }
