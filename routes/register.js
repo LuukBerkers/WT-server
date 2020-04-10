@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
   if (!req.session.loggedin){
     res.sendFile(path.join(__dirname+'../../public/register.html'));
   } else {
-    res.redirect('login/succes');
+    res.redirect('user');
   }
 });
 
@@ -30,7 +30,7 @@ router.post('/', function(req, res) {
     //For testing:
     var someSQLReturn = true;
     if (someSQLReturn) {
-        res.redirect('register/succes');
+        res.redirect('user');
     } else {
         res.status(500).send('Something went wrong');
     }			
