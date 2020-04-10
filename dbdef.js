@@ -33,10 +33,54 @@ sql = [
     'Computer Science',
     'BSc',
     3,
-    NULL,
+    'This course came in handy very quickly.',
     'drs. H. Philippi',
     NULL,
     'B'
+  );`,
+  `INSERT INTO Courses VALUES (
+    'INFOBP',
+    'Basic Programming',
+    'Computer Science',
+    'BSc',
+    1,
+    'A class about basic programming. It''s a beginner-level course. The coding language used is Python.',
+    'dr. S.A. Sosnovsky''s Clone',
+    'images/sosnovsky.jpg',
+    'C'
+  );`,
+  `INSERT INTO Courses VALUES (
+    'INFOGP',
+    'Graphics',
+    'Computer Science',
+    'BSc',
+    4,
+    'A class about graphics. In this course students will have to use their mathematical capabilities in order to get good grades.',
+    'dr. S.A. Sosnovsky',
+    'images/sosnovsky.jpg',
+    'A'
+  );`,
+  `INSERT INTO Courses VALUES (
+    'NS-115B',
+    'Quantum Mechanics',
+    'Natuur- en Sterrenkunde',
+    'MSc',
+    2,
+    'A class about Quantum Mechanics. In this course students will have no clue what they are doing',
+    'dr. S.A. Sosnovsky',
+    'images/sosnovsky.jpg',
+    'D'
+  );`,
+  `INSERT INTO Courses VALUES (
+    'AI-PHI',
+    'Philosophy of A.I.',
+    'Artificial Intelligence',
+    'MSc',
+    3,
+    'This course will make students familiar with fundamental issues in the philosophy of AI, and will introduce them to several current discussions in the field.',
+    'dr. S.A. Sosnovsky',
+    'images/sosnovsky.jpg',
+    'D'
   );`,
   `CREATE TABLE Students (
     sid INTEGER PRIMARY KEY,
@@ -51,7 +95,7 @@ sql = [
     sid INTEGER REFERENCES Students(sid),
     code TEXT REFERENCES Courses(code),
     PRIMARY KEY(sid, code)
-  );`
+  );`,
 ];
 
 module.exports = {
