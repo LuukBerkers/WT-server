@@ -13,7 +13,14 @@ var connection = mysql.createConnection({
 
 router.get('/', function(req, res, next) {
   if (!req.session.loggedin){
-	res.render("login");
+	  if(req.session.error){
+		var error = req.session.error;
+		req.session.error = undefined;
+		res.render("login", {error: error});
+		
+	  } else {
+		res.render("login", {error: ""});
+	  }
   } else {
     res.redirect('user');
   }

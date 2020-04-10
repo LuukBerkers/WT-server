@@ -3,6 +3,7 @@ module.exports = {
         if(req.session.loggedin && req.session.email){
             next();
         } else {
+            req.session.error = "Login is required for this page";
             if (process.env.NODE_ENV === 'development'){
                 res.redirect('/login');
             } else {

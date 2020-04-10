@@ -1,10 +1,28 @@
+@keyframes fadeAnimation {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-
+#error{
+  color: red;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  animation-name: fadeAnimation;
+  animation-duration: 5s;
+  animation-fill-mode: forwards;
+  font-size: 30px;
+}
 a {
-  color: #00B7FF;
+  color: orange;
 }
 
 h1 {
@@ -25,21 +43,85 @@ nav {
 
 nav ul {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
+  margin: 10px 0px;
   overflow: hidden;
-  color: rgb(104, 140, 155);
-  background-color: rgb(6, 24, 31);
+  color: white;
+  background-color: gold;
+  padding: 10px;
 }
 
-form.searchbar button {
-  background: rgb(22, 93, 121);
+nav ul li {
+  display: inline;
+  margin: 10px;
 }
 
-form.searchbar button:hover {
-  background: rgb(104, 140, 155);
+nav ul li:hover {
+  border-bottom: 2px solid red;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: black;
 }
 
 img {
   border-radius: 10px;
+}
+
+section{
+  border: 2px solid black;
+  margin: 10px;
+  padding: 10px;
+}
+.registration-form{
+  width: 250px;
+}
+label{
+  margin: 10px;
+}
+input[type=text]{
+  margin: 10px;
+  height: 30px;
+  width: 250px;
+}
+
+input[type=email]{
+  margin: 10px;
+  height: 30px;
+  width: 250px;
+}
+
+input[type=password]{
+  margin: 10px;
+  height: 30px;
+  width: 250px;
+}
+
+input[type=submit]{
+  width: 100px;
+  height: 30px;
+  margin: 10px;
+}
+
+input[type=submit]:hover{
+  border: 2px solid gold;
+}
+
+th{
+  padding: 10px;
+  border: 2px solid black;
+}
+td{
+  padding: 10px;
+  border: 2px solid black;
+}
+
+button{
+  width: 100px;
+  height: 30px;
+  margin: 10px 0px;
+}
+
+input[type=submit]:hover{
+  border: 2px solid gold;
 }

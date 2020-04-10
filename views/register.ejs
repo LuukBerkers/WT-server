@@ -19,16 +19,22 @@
   </nav>
   <div class="registration-form">
     <form action="register" method="POST">
+        <label>E-mail:</label>
         <input type="email" name="email" placeholder="Email" required>
+        <label>Password:</label>
         <input type="password" name="password" placeholder="Password" required>
+        <label>First name:</label>
         <input type="text" name="first_name" placeholder="First name" required>
+        <label>Last name:</label>
         <input type="text" name="last_name" placeholder="Last name" required>
+        <label>Program:</label>
         <input type="text" name="program" placeholder="Program" required>
+        <label>Academic level:</label>
         <select name="level">
           <option value="BSc">Bachelor</option>
           <option value="MSc">Master</option>
         </select>
-        <input type="submit">
+        <input type="submit" value="Register user">
     </form>
 </div>
 </body>

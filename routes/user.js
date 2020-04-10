@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var auth = require('../auth');
 
 //This should probably come from a database, but for testing:
 var users = [
@@ -41,5 +42,9 @@ router.get('/', function(req, res, next) {
 router.put('/', function(req, res, next) {
   //Route for editing profile of user
   //Make sure to use req.session.email as a path to edit for security
+});
+
+router.get('/logout', function(req, res, next) {
+  auth.logout(req,res,next);
 });
 module.exports = router;
