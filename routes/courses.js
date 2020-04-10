@@ -14,7 +14,7 @@ var courses = [
     description:
       'A class about web technology, which has a test that is way to long',
     teacher: 'S.A. Sosnovsky',
-    photo: 'public/images/sosnovsky.jpg',
+    photo: '"public/images/sosnovsky.jpg"',
     timeslot: 'D',
   },
 ];
