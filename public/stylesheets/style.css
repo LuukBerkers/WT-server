@@ -6,3 +6,31 @@ body {
 a {
   color: #00B7FF;
 }
+
+h1 {
+  font-size: 34 px;
+}
+
+header {
+  padding: 20 px;
+}
+
+.navbar {
+  font-size: 1.2em;
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgb(6, 24, 31)
+}
+
+form.searchbar button {
+  background: rgb(22, 93, 121)
+}
+
+form.searchbar button:hover {
+  background: rgb(104, 140, 155)
+}
