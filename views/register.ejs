@@ -17,11 +17,20 @@
       <li><a href="/user">Profile</a></li>
     </ul>
   </nav>
-  <div class="registration_form">
-    <form>
-      bruh
+  <div class="registration-form">
+    <form action="register" method="POST">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="text" name="first_name" placeholder="First name" required>
+        <input type="text" name="last_name" placeholder="Last name" required>
+        <input type="text" name="program" placeholder="Program" required>
+        <select name="academic_level">
+          <option value="BSc">Bachelor</option>
+          <option value="MSc">Master</option>
+        </select>
+        <input type="submit">
     </form>
-  </div>
+</div>
 </body>
 
 </html>

@@ -41,6 +41,11 @@
 	<p>Course description: <%= description %></p>
 	<p>Teacher: <%= teacher %></p>
 	<img src=<%= photo %>>
-	<button type="button">Register or Unregister from this Course</button>
+  <form action="/courses/<%= code %>/register" method="POST">
+    <input type="submit" value="Register">
+  </form>
+  <form action="/courses/<%= code %>/unregister" method="POST">
+    <input type="submit" value="Unregister">
+  </form>
   </body>
 </html>
