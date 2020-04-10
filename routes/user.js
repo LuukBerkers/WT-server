@@ -14,7 +14,7 @@ var users = [
   {
     email: "",
     first_name: "Luuk",
-    last_name: "Bergers"
+    last_name: "Berkers"
   },
   {
     email: "",
