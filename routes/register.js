@@ -44,8 +44,6 @@ router.post('/', function (req, res) {
     VALUES (?, ?, ?, ?, ?, ?);
   `);
 
-  success = false;
-
   insertion.run(
     [
       student.email,
@@ -60,8 +58,6 @@ router.post('/', function (req, res) {
         console.error(err);
         if (err.errno === 19)
           res.status(400).send('Email address is already registered');
-      } else {
-        success = true;
       }
     }
   );
@@ -69,12 +65,9 @@ router.post('/', function (req, res) {
   db.each(`SELECT * FROM Students`, [], (err, tuple) => {
     console.log(tuple);
   });
-
-  if (success) {
-    req.session.loggedin = true;
-    req.session.email = student.email;
-    res.redirect('user');
-  }
+  req.session.loggedin = true;
+  req.session.email = student.email;
+  res.redirect('user');
 });
 
 router.get('/succes', function (req, res, next) {
