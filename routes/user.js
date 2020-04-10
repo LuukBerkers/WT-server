@@ -2,41 +2,25 @@ var express = require('express');
 var router = express.Router();
 var auth = require('../auth');
 
-//This should probably come from a database, but for testing:
-var users = [
-  {
-    email: "marklooye1@gmail.com",
-    first_name: "Mark",
-    last_name: "Looye",
-    level: "BSc",
-    program: "Psychology",
-    registrations: ["INFOB2WT", "Someothercourse"],
-  },
-  {
-    email: "",
-    first_name: "Luuk",
-    last_name: "Berkers"
-  },
-  {
-    email: "",
-    first_name: "Thijs",
-    last_name: "Rademaker"
-  }
-]
 
 router.get('/', function(req, res, next) {
   var email = req.session.email; //Gets the user that is logged in atm by email
-  var data;
-  users.forEach(user =>{
-    if (user.email === email){
-      data = user;
-    }
-  })
-  if (!data){
-    res.status(404).send({ error: "No users found" });
-  } else {
-    res.render("user", data);
-  }
+  if (email){
+    var query = db.prepare(`SELECT * FROM Students WHERE email = ?;`);
+		query.get([email], (err, tuple) => {
+			if(err){
+				console.error(err);
+				res.status(500).send({ error: 'Internal server error' });
+			} else if (tuple){
+        console.log(tuple);
+        res.render("user", tuple);
+			} else {
+				res.render("login", {error: 'User does not exist'});
+			}
+		});
+	} else {
+		res.render("login", {error: 'Please login again'});
+	}
 });
 
 router.put('/', function(req, res, next) {
