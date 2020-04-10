@@ -9,26 +9,34 @@
   <header>
     <h1>Profile</h1>
   </header>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="user.html">Profile</a></li>
+    </ul>
+  </nav>
   <table>
     <tr>
       <th>Firstname</th>
-      <td>?user.firstname?</td>
+      <td><%= user_firstname %></td>
     </tr>
     <tr>
       <th>Lastname</th>
-      <td></td>
+      <td><%= user_lastname %></td>
     </tr>
     <tr>
       <th>E-mail Address</th>
-      <td></td>
+      <td><%= user_email %></td>
     </tr>
     <tr>
       <th>Level</th>
-      <td></td>
+      <td><%= user_level %></td>
     </tr>
     <tr>
       <th>Program</th>
-      <td></td>
+      <td><%= user_program %></td>
     </tr>
   </table>
 </body>
